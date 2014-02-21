@@ -109,6 +109,7 @@
             this.timePickerIncrement = 30;
             this.timePicker12Hour = true;
             this.singleDatePicker = false;
+            this.singleDatePickerAutoClose = true;
             this.ranges = {};
 
             this.opens = 'right';
@@ -243,6 +244,10 @@
 
             if (typeof options.singleDatePicker == 'boolean') {
                 this.singleDatePicker = options.singleDatePicker;
+            }
+
+            if (typeof options.singleDatePickerAutoClose == 'boolean') {
+                this.singleDatePickerAutoClose = options.singleDatePickerAutoClose;
             }
 
             if (typeof options.timePicker == 'boolean') {
@@ -511,6 +516,10 @@
 
             $(document).off('mousedown', this.hide);
             this.element.trigger('hide', this);
+
+            if(this.singleDatePicker && !this.singleDatePickerAutoClose){
+                this.updateInputText();
+            }
         },
 
         enterRange: function (e) {
@@ -648,7 +657,7 @@
             this.rightCalendar.month.month(this.endDate.month()).year(this.endDate.year());
             this.updateCalendars();
 
-            if (this.singleDatePicker)
+            if (this.singleDatePicker && this.singleDatePickerAutoClose)
                 this.clickApply();
         },
 

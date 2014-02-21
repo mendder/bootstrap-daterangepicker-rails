@@ -511,15 +511,16 @@
             if (!this.startDate.isSame(this.oldStartDate) || !this.endDate.isSame(this.oldEndDate))
                 this.notify();
 
+            if(this.singleDatePicker && !this.singleDatePickerAutoClose && !this.startDate.isSame(this.oldStartDate)){
+                this.updateInputText();
+            }
+
             this.oldStartDate = this.startDate.clone();
             this.oldEndDate = this.endDate.clone();
 
             $(document).off('mousedown', this.hide);
             this.element.trigger('hide', this);
 
-            if(this.singleDatePicker && !this.singleDatePickerAutoClose){
-                this.updateInputText();
-            }
         },
 
         enterRange: function (e) {
